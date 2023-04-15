@@ -8,6 +8,10 @@ package Modelo;
  *
  * @author Herbert
  */
-public class Email {
-    
+public class Email 
+{
+ 
+    public static void main(String[] args) {
+        System.out.println("Helo, word");
+    }
 }

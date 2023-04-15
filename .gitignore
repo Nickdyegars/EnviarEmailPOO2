@@ -48,3 +48,4 @@ Thumbs.db
 *.mov
 *.wmv
 /IF-MAIL/nbproject/private/
+/IF-MAIL/build/
