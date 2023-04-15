@@ -4,10 +4,33 @@
  */
 package Controle;
 
+import Modelo.Conta;
+import Modelo.Servidor;
+
 /**
  *
  * @author Herbert
  */
 public class ControleServidor {
     
+    
+    
+    public static void logar(Servidor servidor){
+        
+    }
+    
+    public static void deslogar(Servidor servidor){
+        
+    }
+    
+    public static Conta buscarConta(Servidor servidor){
+        
+        
+    }
+    
+
+    
+    
 }
+
+
