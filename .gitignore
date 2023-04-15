@@ -49,3 +49,9 @@ Thumbs.db
 *.wmv
 /IF-MAIL/nbproject/private/
 /IF-MAIL/build/
+IF-MAIL/nbproject/genfiles.properties
+IF-MAIL/nbproject/build-impl.xml
+IF-MAIL/nbproject/project.properties
+IF-MAIL/nbproject/project.xml
+IF-MAIL/nbproject/build-impl.xml
+*.xml
