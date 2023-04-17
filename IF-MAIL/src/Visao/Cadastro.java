@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -35,9 +36,11 @@ public class Cadastro extends javax.swing.JFrame {
     
     public Cadastro() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     public Cadastro(Servidor servidor){
         this.servidor = servidor;
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -152,17 +155,21 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         // TODO add your handling code here:
-       if(Objects.equals(editConfirmarSenha, editSenha)){
+       if(Objects.equals(editConfirmarSenha.getText(), editSenha.getText())){
            try{
             
             ControleServidor.cadastrarConta(servidor, editEmail.getText(),editSenha.getText());
+            
+            JFrame telaLogin = new Login(servidor);
+            this.dispose();
+            telaLogin.show();
             
         }catch(ContaExistenteException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
        }
        else{
-           
+           JOptionPane.showMessageDialog(null, "As senhas não conferem");
        }
            
        

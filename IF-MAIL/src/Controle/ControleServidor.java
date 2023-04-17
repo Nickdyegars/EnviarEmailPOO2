@@ -9,6 +9,7 @@ import Controle.Excecoes.ContaNaoEncontradaException;
 import Controle.Excecoes.SenhaIncorretaException;
 import Modelo.Conta;
 import Modelo.Servidor;
+import Persistencia.Empacotamento;
 import java.util.Objects;
 import java.util.Set;
 
@@ -49,6 +50,7 @@ public class ControleServidor {
         Conta conta = new Conta(enderecoEmail, senha);
         
         servidor.getListaContas().add(conta);
+        Empacotamento.gravarArquivoBinario(servidor, "servidor.dat");
         
         
     }

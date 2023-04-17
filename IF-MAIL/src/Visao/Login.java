@@ -8,6 +8,7 @@ import Controle.ControleServidor;
 import Controle.Excecoes.ContaNaoEncontradaException;
 import Controle.Excecoes.SenhaIncorretaException;
 import Modelo.Servidor;
+import Persistencia.Empacotamento;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -21,11 +22,18 @@ public class Login extends javax.swing.JFrame {
      * Creates new form TelaLogin
      */
     
-    private Servidor servidor = new Servidor();
+    private Servidor servidor;
     
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null); // Centraliza a tela
+        servidor = Empacotamento.lerArquivoBinario("servidor.dat");
+    }
+    
+    public Login(Servidor servidor){
+        initComponents();
+        this.setLocationRelativeTo(null); // Centraliza a tela
+        this.servidor = servidor;
     }
 
     /**
@@ -141,7 +149,9 @@ public class Login extends javax.swing.JFrame {
         try{
             
             ControleServidor.logarConta(servidor, editSenha.getText(), editEmail.getText());
-            JFrame x = new Principal();
+            JFrame telaPrincipal = new Principal();
+            this.dispose();// fechar a janela atual
+            telaPrincipal.show();
             
         }catch(ContaNaoEncontradaException | SenhaIncorretaException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
