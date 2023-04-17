@@ -33,20 +33,20 @@ public class ControleConta {
          return emailsEncontrados;  
     }
     
-    public List<Email> getEmailsPorEnderecoEmailDestinatario(String destinatario){
+    public List<Email> getEmailsPorEnderecoEmailDestinatario(Conta conta, String destinatario){
         
         List<Email> emailsEncontrados = new ArrayList();
         
         List<Email> todosEmails = new ArrayList();
         
-        todosEmails.addAll(this.caixaEntrada.getEmails());
-        todosEmails.addAll(this.caixaSaida.getEmails());
+        todosEmails.addAll(conta.getCaixaEntrada().getEmails());
+        todosEmails.addAll(conta.getCaixaSaida().getEmails());
         
         for(Email e : todosEmails){
             
-            for(ContaEmail conta : e.getDestinatarios()){
+            for(Conta conta : e.getDestinatarios(){
                 
-                if(Objects.equals(conta.enderecoEmail,destinatario)){
+                if(Objects.equals(conta.getEnderecoEmail(),destinatario)){
                     
                     emailsEncontrados.add(e);
                     
