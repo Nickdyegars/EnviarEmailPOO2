@@ -33,20 +33,20 @@ public class ControleConta {
          return emailsEncontrados;  
     }
     
-    public List<Email> getEmailsPorEnderecoEmailDestinatario(String destinatario){
+    public List<Email> getEmailsPorEnderecoEmailDestinatario(Conta conta, String destinatario){
         
         List<Email> emailsEncontrados = new ArrayList();
         
         List<Email> todosEmails = new ArrayList();
         
-        todosEmails.addAll(this.caixaEntrada.getEmails());
-        todosEmails.addAll(this.caixaSaida.getEmails());
+        todosEmails.addAll(conta.getCaixaEntrada().getEmails());
+        todosEmails.addAll(conta.getCaixaSaida().getEmails());
         
         for(Email e : todosEmails){
             
-            for(ContaEmail conta : e.getDestinatarios()){
+            for(Conta contaA : e.getDestinatarios()){
                 
-                if(Objects.equals(conta.enderecoEmail,destinatario)){
+                if(Objects.equals(contaA.getEnderecoEmail(),destinatario)){
                     
                     emailsEncontrados.add(e);
                     
@@ -59,16 +59,16 @@ public class ControleConta {
         return emailsEncontrados;
     }
     
-    public String getEnderecoEmailDestinatarios(){
+    public String getEnderecoEmailDestinatarios(Conta conta){
         
         List<String> destinatarios = new ArrayList();
         
-        for(Email email : this.caixaSaida.getEmails()){
+        for(Email email : conta.getCaixaSaida().getEmails()){
             
-            for(ContaEmail conta: email.getDestinatarios()){
+            for(Conta contaA: email.getDestinatarios()){
 
-                if(!destinatarios.contains(conta.getEnderecoEmail())){
-                    destinatarios.add(conta.getEnderecoEmail());
+                if(!destinatarios.contains(contaA.getEnderecoEmail())){
+                    destinatarios.add(contaA.getEnderecoEmail());
                 }
             }
         }
