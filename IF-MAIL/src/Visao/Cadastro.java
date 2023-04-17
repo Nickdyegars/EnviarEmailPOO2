@@ -13,8 +13,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import netscape.javascript.JSObject;
-import org.json.simple.JSONObject;
+
+
 
 /**
  *
@@ -25,13 +25,14 @@ public class Cadastro extends javax.swing.JFrame {
     /**
      * Creates new form Cadastro
      */
-    private FileWriter fileWriter = null;
-    private JSONObject jsonObject = new JSONObject();
-    private Servidor servidor = new Servidor();
-    private Set<Conta> listaConta = new HashSet<>();
+    
+    private Servidor servidor;
     
     public Cadastro() {
         initComponents();
+    }
+    public Cadastro(Servidor servidor){
+        this.servidor = servidor;
     }
 
     /**
@@ -147,24 +148,7 @@ public class Cadastro extends javax.swing.JFrame {
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         // TODO add your handling code here:
        
-        Conta conta = new Conta(editEmail.getText(), new Pasta(), new Pasta(), editSenha.getText());
-        listaConta.add(conta);
-        servidor.setListaContas(listaConta);
-        jsonObject.put("servidor", servidor.toString());
-        JSONObject jSONObject1 = new JSONObject();
 
-//        jsonObject.put("email", editEmail.getText());
-//        jsonObject.put("senha", editSenha.getText());
-        try 
-        {
-            fileWriter = new FileWriter("servidor.json");
-            fileWriter.write(jsonObject.toString());
-            fileWriter.close();
-        } 
-        catch (IOException ex) 
-        {
-            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     /**

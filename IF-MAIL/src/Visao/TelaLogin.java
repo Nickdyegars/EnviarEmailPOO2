@@ -4,7 +4,12 @@
  */
 package Visao;
 
+import Controle.ControleServidor;
+import Controle.Excecoes.ContaNaoEncontradaException;
+import Controle.Excecoes.SenhaIncorretaException;
+import Modelo.Servidor;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,8 +20,12 @@ public class TelaLogin extends javax.swing.JFrame {
     /**
      * Creates new form TelaLogin
      */
+    
+    private Servidor servidor = new Servidor();
+    
     public TelaLogin() {
         initComponents();
+        this.setLocationRelativeTo(null); // Centraliza a tela
     }
 
     /**
@@ -56,6 +65,11 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         botaoLogin.setText("Login");
+        botaoLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoLoginActionPerformed(evt);
+            }
+        });
 
         botaoCadastrar.setText("Cadastro");
         botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -117,9 +131,22 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         // TODO add your handling code here:
-        JFrame telaCadastro = new Cadastro();
+        JFrame telaCadastro = new Cadastro(this.servidor);
         telaCadastro.show();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
+
+    private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLoginActionPerformed
+        // TODO add your handling code here:
+        
+        try{
+            
+            ControleServidor.logarConta(servidor, editSenha.getText(), editEmail.getText());
+            
+        }catch(ContaNaoEncontradaException | SenhaIncorretaException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+    }//GEN-LAST:event_botaoLoginActionPerformed
 
     /**
      * @param args the command line arguments
