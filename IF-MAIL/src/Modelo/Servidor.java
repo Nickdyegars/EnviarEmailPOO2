@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,8 @@ import java.util.Set;
  *
  * @author Herbert
  */
-public class Servidor {
+public class Servidor implements Serializable
+{
     
     private Set<Conta> listaContas = new HashSet();
     private Conta contaLogada;

@@ -5,13 +5,15 @@
 package Modelo;
 
 import Controle.Excecoes.EspacoInsuficienteException;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Herbert
  */
-public class Conta {
+public class Conta implements Serializable
+{
 
     //exemplo de endereco de email: ana@gmail.com
     private String enderecoEmail;

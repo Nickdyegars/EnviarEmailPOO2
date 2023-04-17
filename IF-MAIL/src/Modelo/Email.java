@@ -4,13 +4,15 @@
  */
 package Modelo;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  *
  * @author Herbert
  */
-public class Email implements Comparable<Email>{
+public class Email implements Comparable<Email>, Serializable
+{
 
     private int codigo;
     private Conta remetente;

@@ -4,18 +4,33 @@
  */
 package Visao;
 
-import javax.swing.JFrame;
+import Modelo.Conta;
+import Modelo.Pasta;
+import Modelo.Servidor;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import netscape.javascript.JSObject;
+import org.json.simple.JSONObject;
 
 /**
  *
- * @author Herbert
+ * @author nicke
  */
-public class TelaLogin extends javax.swing.JFrame {
+public class Cadastro extends javax.swing.JFrame {
 
     /**
-     * Creates new form TelaLogin
+     * Creates new form Cadastro
      */
-    public TelaLogin() {
+    private FileWriter fileWriter = null;
+    private JSONObject jsonObject = new JSONObject();
+    private Servidor servidor = new Servidor();
+    private Set<Conta> listaConta = new HashSet<>();
+    
+    public Cadastro() {
         initComponents();
     }
 
@@ -28,14 +43,22 @@ public class TelaLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        botaoCadastrar = new javax.swing.JButton();
         editEmail = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         editSenha = new javax.swing.JPasswordField();
-        botaoLogin = new javax.swing.JButton();
-        botaoCadastrar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        editConfirmarSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarActionPerformed(evt);
+            }
+        });
 
         editEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -55,12 +78,12 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
-        botaoLogin.setText("Login");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Confirmar senha");
 
-        botaoCadastrar.setText("Cadastro");
-        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        editConfirmarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarActionPerformed(evt);
+                editConfirmarSenhaActionPerformed(evt);
             }
         });
 
@@ -69,21 +92,21 @@ public class TelaLogin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(editEmail)
-                            .addComponent(editSenha))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(editEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editConfirmarSenha, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(60, 60, 60))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botaoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(127, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -97,11 +120,13 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(editSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(botaoLogin)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(botaoCadastrar)
-                .addGap(47, 47, 47))
+                .addGap(52, 52, 52))
         );
 
         pack();
@@ -115,10 +140,31 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_editSenhaActionPerformed
 
+    private void editConfirmarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editConfirmarSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editConfirmarSenhaActionPerformed
+
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         // TODO add your handling code here:
-        JFrame telaCadastro = new Cadastro();
-        telaCadastro.show();
+       
+        Conta conta = new Conta(editEmail.getText(), new Pasta(), new Pasta(), editSenha.getText());
+        listaConta.add(conta);
+        servidor.setListaContas(listaConta);
+        jsonObject.put("servidor", servidor.toString());
+        JSONObject jSONObject1 = new JSONObject();
+
+//        jsonObject.put("email", editEmail.getText());
+//        jsonObject.put("senha", editSenha.getText());
+        try 
+        {
+            fileWriter = new FileWriter("servidor.json");
+            fileWriter.write(jsonObject.toString());
+            fileWriter.close();
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     /**
@@ -138,30 +184,31 @@ public class TelaLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaLogin().setVisible(true);
+                new Cadastro().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCadastrar;
-    private javax.swing.JButton botaoLogin;
+    private javax.swing.JPasswordField editConfirmarSenha;
     private javax.swing.JTextField editEmail;
     private javax.swing.JPasswordField editSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

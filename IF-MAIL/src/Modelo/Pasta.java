@@ -8,9 +8,11 @@ package Modelo;
  *
  * @author Herbert
  */
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Pasta {
+public class Pasta implements Serializable
+{
 
     //nome da pasta: "inbox", "entrada", etc.
     private String nome;
