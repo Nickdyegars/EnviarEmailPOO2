@@ -4,6 +4,7 @@
  */
 package Controle;
 
+import Controle.Comparador.ComparadorEmailPorTamanho;
 import Modelo.Conta;
 import Modelo.Email;
 import java.util.List;

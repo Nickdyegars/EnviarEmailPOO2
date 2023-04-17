@@ -5,22 +5,27 @@
 package Controle.Comparador;
 
 import Modelo.Email;
+import java.util.Comparator;
 
 /**
  *
  * @author Okami
  */
-public class ComparadorEmailPorTamanho extends Email implements Comparable<Email>{
+public class ComparadorEmailPorTamanho implements Comparator<Email>{
 
     @Override
-    public int compareTo(Email e) {
-        if(this.getTamanho() < e.getTamanho()){
+    public int compare(Email o1, Email o2) {
+        if(o1.getTamanho() < o2.getTamanho()){
             return -1;
         }
-        if(this.getTamanho() > e.getTamanho()){
+        if(o1.getTamanho() > o2.getTamanho()){
             return 1;
         }
         return 0;
     }
+
+
+
+
     
 }
