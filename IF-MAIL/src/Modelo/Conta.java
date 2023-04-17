@@ -5,6 +5,7 @@
 package Modelo;
 
 import Controle.Excecoes.EspacoInsuficienteException;
+import java.util.Objects;
 
 /**
  *
@@ -19,10 +20,23 @@ public class Conta {
     //armazena os emails enviados
     private Pasta caixaSaida;
     //espaco em GB da conta email
-    private double capacidadeTotalEmGB;
+    private double capacidadeTotalEmGB = 15.0;
+    
+    private String senha;
 
     public String getEnderecoEmail() {
         return enderecoEmail;
+    }
+
+    public Conta(String enderecoEmail, Pasta caixaEntrada, Pasta caixaSaida, String senha) {
+        this.enderecoEmail = enderecoEmail;
+        this.caixaEntrada = caixaEntrada;
+        this.caixaSaida = caixaSaida;
+        this.senha = senha;
+    }
+    
+    public boolean validaSenha(String senha){
+        return Objects.equals(senha,this.senha);
     }
 
     public Pasta getCaixaEntrada() {
@@ -42,6 +56,8 @@ public class Conta {
         return this.caixaEntrada.getEmails().size() + this.caixaSaida.getEmails().size();
         
     }
+    
+    
     
     public double getEspacoDisponivel() throws EspacoInsuficienteException{
         
