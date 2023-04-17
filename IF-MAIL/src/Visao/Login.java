@@ -141,7 +141,7 @@ public class Login extends javax.swing.JFrame {
         try{
             
             ControleServidor.logarConta(servidor, editSenha.getText(), editEmail.getText());
-            JFrame x = new TelaPrincipal();
+            JFrame x = new Principal();
             
         }catch(ContaNaoEncontradaException | SenhaIncorretaException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
