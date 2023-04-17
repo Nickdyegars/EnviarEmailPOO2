@@ -31,3 +31,8 @@ replay_pid*
 *.properties
 *.properties
 IF-MAIL/nbproject/project.xml
+IF-MAIL/dist/README.TXT
+IF-MAIL/build/classes/Visao/TelaLogin.form
+IF-MAIL/build/classes/Visao/Cadastro.form
+IF-MAIL/build/classes/.netbeans_update_resources
+IF-MAIL/build/classes/.netbeans_automatic_build
