@@ -36,3 +36,5 @@ IF-MAIL/build/classes/Visao/TelaLogin.form
 IF-MAIL/build/classes/Visao/Cadastro.form
 IF-MAIL/build/classes/.netbeans_update_resources
 IF-MAIL/build/classes/.netbeans_automatic_build
+IF-MAIL/nbproject/project.properties
+*.properties
