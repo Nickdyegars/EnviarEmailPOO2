@@ -4,15 +4,20 @@
  */
 package Visao;
 
+import Controle.ControleServidor;
+import Controle.Excecoes.ContaExistenteException;
+import Controle.Excecoes.SenhaIncorretaException;
 import Modelo.Conta;
 import Modelo.Pasta;
 import Modelo.Servidor;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 
@@ -147,7 +152,21 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         // TODO add your handling code here:
+       if(Objects.equals(editConfirmarSenha, editSenha)){
+           try{
+            
+            ControleServidor.cadastrarConta(servidor, editEmail.getText(),editSenha.getText());
+            
+        }catch(ContaExistenteException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+       }
+       else{
+           
+       }
+           
        
+        
 
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
