@@ -18,8 +18,13 @@ public class Servidor implements Serializable
     private Set<Conta> listaContas = new HashSet();
     private Conta contaLogada;
     
-    public Servidor(){
-        
+    public Servidor()
+    {
+        for(int i=0; i<5; i++)
+        {
+            Conta conta = new Conta("teste"+i+"@gmail.com","123");
+            this.listaContas.add(conta);
+        }
     }
 
     public Set<Conta> getListaContas() {

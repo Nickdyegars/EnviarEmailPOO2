@@ -4,10 +4,23 @@
  */
 package Controle.Comparador;
 
+import Modelo.Email;
+
 /**
  *
  * @author Okami
  */
-public class ComparadorEmailPorTamanho {
+public class ComparadorEmailPorTamanho extends Email implements Comparable<Email>{
+
+    @Override
+    public int compareTo(Email e) {
+        if(this.getTamanho() < e.getTamanho()){
+            return -1;
+        }
+        if(this.getTamanho() > e.getTamanho()){
+            return 1;
+        }
+        return 0;
+    }
     
 }
