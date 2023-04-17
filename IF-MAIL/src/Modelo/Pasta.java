@@ -18,7 +18,12 @@ public class Pasta implements Serializable
     private String nome;
     //emails armazenados na pasta
     private ArrayList<Email> emails;
-
+    
+    public Pasta(String nome){
+        this.nome = nome;
+        this.emails = new ArrayList();
+    }
+    
     public String getNome() {
         return nome;
     }

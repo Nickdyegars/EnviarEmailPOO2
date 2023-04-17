@@ -30,10 +30,10 @@ public class Conta implements Serializable
         return enderecoEmail;
     }
 
-    public Conta(String enderecoEmail, Pasta caixaEntrada, Pasta caixaSaida, String senha) {
+    public Conta(String enderecoEmail, String senha) {
         this.enderecoEmail = enderecoEmail;
-        this.caixaEntrada = caixaEntrada;
-        this.caixaSaida = caixaSaida;
+        this.caixaEntrada = new Pasta("Caixa de Entrada");
+        this.caixaSaida = new Pasta("Enviado");
         this.senha = senha;
     }
     
