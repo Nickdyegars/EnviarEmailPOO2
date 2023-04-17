@@ -139,6 +139,7 @@ public class Login extends javax.swing.JFrame {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         // TODO add your handling code here:
+        
         JFrame telaCadastro = new Cadastro(this.servidor);
         telaCadastro.show();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
@@ -149,7 +150,7 @@ public class Login extends javax.swing.JFrame {
         try{
             
             ControleServidor.logarConta(servidor, editSenha.getText(), editEmail.getText());
-            JFrame telaPrincipal = new Principal();
+            JFrame telaPrincipal = new Principal(servidor);
             this.dispose();// fechar a janela atual
             telaPrincipal.show();
             

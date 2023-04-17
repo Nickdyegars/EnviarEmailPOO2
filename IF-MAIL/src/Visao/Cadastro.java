@@ -39,6 +39,7 @@ public class Cadastro extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     public Cadastro(Servidor servidor){
+        initComponents();
         this.servidor = servidor;
         this.setLocationRelativeTo(null);
     }
