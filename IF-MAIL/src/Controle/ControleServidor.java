@@ -6,12 +6,17 @@ package Controle;
 
 import Controle.Excecoes.ContaExistenteException;
 import Controle.Excecoes.ContaNaoEncontradaException;
+import Controle.Excecoes.EnderecoInvalidoException;
 import Controle.Excecoes.SenhaIncorretaException;
 import Modelo.Conta;
+import Modelo.Email;
 import Modelo.Servidor;
 import Persistencia.Empacotamento;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import Controle.ControleConta;
 
 /**
  *
@@ -79,7 +84,49 @@ public class ControleServidor {
         return servidor.getContaLogada() != null;
     }
     
-    
+    public static boolean enviarEmail(Servidor servidor, List<String> enderecos_destinatarios, String assunto, String corpo, int codigo) throws EnderecoInvalidoException{
+        
+        Set<Conta> contas_destinatarios = new HashSet(enderecos_destinatarios.size()); // Instancia o objeto ArrayList que irá guardar as contas dos destinarários
+        
+        for(String endereco: enderecos_destinatarios){
+            
+            Conta conta = ControleServidor.buscarConta(servidor, endereco); // Busca uma conta com o endereço de email da vez
+            
+            // Se o retorno do método buscaConta não for vazio, adiciona a conta na lista de destinatários
+            if( conta != null){
+                
+                contas_destinatarios.add(conta);
+            }else{
+                throw new EnderecoInvalidoException("Erro: O endereço "+ endereco + " é inválido!");
+            }
+        }
+        
+        // Definindo o tamanho em KB do email com base na quantidade de letras do assunto + corpo
+        double tamanho;
+        tamanho = corpo.length()* 8;
+        tamanho += assunto.length()* 8;
+        tamanho = tamanho/1000;
+        
+        
+        
+        Email email = new Email(servidor.getContaLogada(), contas_destinatarios, assunto, corpo, tamanho);
+        
+        // Registra o email na caixa de saida do remetente ( conta que está logada no momento)
+        ControleConta.registraEmailEnviado(servidor.getContaLogada(), email);
+        
+        // Registra o email na caixa de entrada de todos os destinatários;
+        for(Conta c : contas_destinatarios){
+            
+            ControleConta.registraEmailEnviado(servidor.getContaLogada(), email);
+            
+        }
+        
+        // Salva o estado do servidor no arquivo servidor.dat
+        Empacotamento.gravarArquivoBinario(servidor, "servidor.dat");
+     
+        return true;
+        
+    }
 }
 
 

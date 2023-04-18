@@ -86,4 +86,22 @@ public class ControleConta {
         return stringDestinatarios;
         
     }
+    
+    // Falta verificar tamanho disponível
+    public static void registraEmailEnviado(Conta conta, Email email){
+        
+        
+        conta.getCaixaSaida().getEmails().add(email);
+        
+        
+    }
+    
+    // Falta verificar tamanho disponível
+    public static void registraEmailRecebido(Conta conta, Email email){
+        
+        
+        conta.getCaixaEntrada().getEmails().add(email);
+        
+        
+    }
 }
