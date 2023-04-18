@@ -34,11 +34,13 @@ public class ControleServidor {
         }
         
         servidor.setContaLogada(contaEncontrada);
+        Empacotamento.gravarArquivoBinario(servidor, "servidor.dat");
         
     }
     
     public static void deslogarConta(Servidor servidor){
         servidor.setContaLogada(null);
+        Empacotamento.gravarArquivoBinario(servidor, "servidor.dat");
     }
     
     public static void cadastrarConta(Servidor servidor, String enderecoEmail, String senha) throws ContaExistenteException{
@@ -72,7 +74,10 @@ public class ControleServidor {
         
     }
     
-
+    public static boolean isLogado(Servidor servidor)
+    {
+        return servidor.getContaLogada() != null;
+    }
     
     
 }

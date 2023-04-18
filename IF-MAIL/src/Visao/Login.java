@@ -22,12 +22,12 @@ public class Login extends javax.swing.JFrame {
      * Creates new form TelaLogin
      */
     
-    private Servidor servidor;
+    private static Servidor servidor;
     
     public Login() {
-        initComponents();
-        this.setLocationRelativeTo(null); // Centraliza a tela
         servidor = Empacotamento.lerArquivoBinario("servidor.dat");
+        initComponents();
+        this.setLocationRelativeTo(null);
     }
     
     public Login(Servidor servidor){
@@ -35,6 +35,7 @@ public class Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); // Centraliza a tela
         this.servidor = servidor;
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,6 +142,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         JFrame telaCadastro = new Cadastro(this.servidor);
+        this.dispose();// fechar a janela atual
         telaCadastro.show();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
@@ -151,8 +153,8 @@ public class Login extends javax.swing.JFrame {
             
             ControleServidor.logarConta(servidor, editSenha.getText(), editEmail.getText());
             JFrame telaPrincipal = new Principal(servidor);
-            this.dispose();// fechar a janela atual
             telaPrincipal.show();
+            this.dispose();// fechar a janela atual
             
         }catch(ContaNaoEncontradaException | SenhaIncorretaException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -191,7 +193,16 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                servidor = Empacotamento.lerArquivoBinario("servidor.dat");
+                if(ControleServidor.isLogado(servidor))
+                {
+                    JFrame telaPrincipal = new Principal(servidor);
+                    telaPrincipal.show();
+                }
+                else
+                {
+                    new Login().setVisible(true);
+                }
             }
         });
     }

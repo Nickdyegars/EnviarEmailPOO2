@@ -34,7 +34,7 @@ public class ControleConta {
          return emailsEncontrados;  
     }
     
-    public List<Email> getEmailsPorEnderecoEmailDestinatario(Conta conta, String destinatario){
+    public static List<Email> getEmailsPorEnderecoEmailDestinatario(Conta conta, String destinatario){
         
         List<Email> emailsEncontrados = new ArrayList();
         
@@ -60,7 +60,7 @@ public class ControleConta {
         return emailsEncontrados;
     }
     
-    public String getEnderecoEmailDestinatarios(Conta conta){
+    public static String getEnderecoEmailDestinatarios(Conta conta){
         
         List<String> destinatarios = new ArrayList();
         
