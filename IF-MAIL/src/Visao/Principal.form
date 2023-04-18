@@ -47,6 +47,14 @@
             <Property name="text" type="java.lang.String" value="Enviados"/>
           </Properties>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="botaoEnviarEmail">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Enviar Email"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoEnviarEmailMouseClicked"/>
+          </Events>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="botaoSair">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sair"/>

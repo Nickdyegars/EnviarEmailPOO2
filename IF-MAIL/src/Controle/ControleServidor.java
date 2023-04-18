@@ -84,9 +84,9 @@ public class ControleServidor {
         return servidor.getContaLogada() != null;
     }
     
-    public static boolean enviarEmail(Servidor servidor, List<String> enderecos_destinatarios, String assunto, String corpo, int codigo) throws EnderecoInvalidoException{
+    public static boolean enviarEmail(Servidor servidor, String[] enderecos_destinatarios, String assunto, String corpo, int codigo) throws EnderecoInvalidoException{
         
-        Set<Conta> contas_destinatarios = new HashSet(enderecos_destinatarios.size()); // Instancia o objeto ArrayList que irá guardar as contas dos destinarários
+        Set<Conta> contas_destinatarios = new HashSet(enderecos_destinatarios.length); // Instancia o objeto ArrayList que irá guardar as contas dos destinarários
         
         for(String endereco: enderecos_destinatarios){
             
@@ -117,7 +117,7 @@ public class ControleServidor {
         // Registra o email na caixa de entrada de todos os destinatários;
         for(Conta c : contas_destinatarios){
             
-            ControleConta.registraEmailEnviado(servidor.getContaLogada(), email);
+            ControleConta.registraEmailRecebido(c, email);
             
         }
         

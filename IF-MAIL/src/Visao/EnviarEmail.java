@@ -4,6 +4,12 @@
  */
 package Visao;
 
+import Controle.ControleServidor;
+import Controle.Excecoes.EnderecoInvalidoException;
+import Modelo.Servidor;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nicke
@@ -13,8 +19,16 @@ public class EnviarEmail extends javax.swing.JFrame {
     /**
      * Creates new form EnviarEmail
      */
+    
+    private Servidor servidor;
+    
     public EnviarEmail() {
         initComponents();
+    }
+    public EnviarEmail(Servidor servidor){
+        initComponents();
+        this.servidor = servidor;
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -26,21 +40,121 @@ public class EnviarEmail extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        botaoEnviar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        editAssunto = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        editDestinatarios = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        editCorpo = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        botaoEnviar.setText("Enviar");
+        botaoEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEnviarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Destinatários:");
+
+        editAssunto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editAssuntoActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Assunto:");
+
+        editDestinatarios.setColumns(20);
+        editDestinatarios.setRows(5);
+        jScrollPane1.setViewportView(editDestinatarios);
+
+        editCorpo.setColumns(20);
+        editCorpo.setRows(5);
+        jScrollPane2.setViewportView(editCorpo);
+
+        jLabel3.setText("Corpo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(editAssunto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(botaoEnviar)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(editAssunto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(botaoEnviar)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botaoEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEnviarActionPerformed
+        // TODO add your handling code here:
+        
+        String[] destinatarios = this.editDestinatarios.getText().split(",");
+        String assunto = this.editAssunto.getText();
+        String corpo = this.editCorpo.getText();
+        
+        try{
+            
+            // Implementar sistema de geração de códigos
+            ControleServidor.enviarEmail(servidor, destinatarios, assunto, corpo,1);
+            JOptionPane.showMessageDialog(null, "Email enviado com sucesso!");
+            JFrame telaPrincipal = new Principal(this.servidor);
+            telaPrincipal.show();
+            this.dispose();
+            
+        }catch(EnderecoInvalidoException e){
+            
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            
+        }
+
+        
+    }//GEN-LAST:event_botaoEnviarActionPerformed
+
+    private void editAssuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAssuntoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editAssuntoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +192,14 @@ public class EnviarEmail extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoEnviar;
+    private javax.swing.JTextField editAssunto;
+    private javax.swing.JTextArea editCorpo;
+    private javax.swing.JTextArea editDestinatarios;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

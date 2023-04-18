@@ -26,14 +26,14 @@ public class Principal extends javax.swing.JFrame {
      */
     private Servidor servidor;
     public Principal() {
-        initComponents();
         configurarListaEmails();
+        initComponents();
         this.setLocationRelativeTo(null); // Centraliza a tela
     }
     
     public Principal(Servidor servidor){
-        initComponents();
         this.servidor = servidor;
+        initComponents();
         configurarListaEmails();
         this.setLocationRelativeTo(null); // Centraliza a tela
     }
@@ -58,6 +58,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        botaoEnviarEmail = new javax.swing.JMenu();
         botaoSair = new javax.swing.JMenu();
 
         jMenu3.setText("jMenu3");
@@ -94,6 +95,14 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu2.setText("Enviados");
         jMenuBar1.add(jMenu2);
+
+        botaoEnviarEmail.setText("Enviar Email");
+        botaoEnviarEmail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoEnviarEmailMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(botaoEnviarEmail);
 
         botaoSair.setText("Sair");
         botaoSair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -154,6 +163,13 @@ public class Principal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "teste");
     }//GEN-LAST:event_listaEmailsRecebidoMouseClicked
 
+    private void botaoEnviarEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoEnviarEmailMouseClicked
+        // TODO add your handling code here:
+        JFrame telaEnviarEmail = new EnviarEmail(this.servidor);
+        telaEnviarEmail.show();
+        this.dispose();// fechar a janela atual
+    }//GEN-LAST:event_botaoEnviarEmailMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -195,15 +211,16 @@ public class Principal extends javax.swing.JFrame {
     {
         List<String> listaAssuntos = new ArrayList<>();
         //modificar para aparecer o assunto na tela, no caso descomentar a linha abaixo
-        for(int i=0; i<3; i++)//Email email:servidor.getContaLogada().getCaixaEntrada().getEmails())
+        for(Email email: this.servidor.getContaLogada().getCaixaEntrada().getEmails())//
         {
-            listaAssuntos.add("teste"+i);//email.getAssunto());
+            listaAssuntos.add(email.getAssunto());//email.getAssunto());
         }
         return listaAssuntos;
 //        listaEmailsRecebido = new JList<>(listaAssuntos.toArray(new String[0]));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu botaoEnviarEmail;
     private javax.swing.JMenu botaoSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
